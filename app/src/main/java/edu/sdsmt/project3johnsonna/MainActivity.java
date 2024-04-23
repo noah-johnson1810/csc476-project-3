@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
             if (!bestAvailable.equals(LocationManager.PASSIVE_PROVIDER)) {
                 locationManager.requestLocationUpdates(bestAvailable, 500, 1, activeListener);
                 Location location = locationManager.getLastKnownLocation(bestAvailable);
-                drawingView.updateCoordinates(location.getLongitude(), location.getLatitude());
+                drawingView.updateLocation(location);
             }
         } else {
             ActivityCompat.requestPermissions(this,
@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onLocationChanged(@NonNull Location location) {
-            drawingView.updateCoordinates(location.getLongitude(), location.getLatitude());
+            drawingView.updateLocation(location);
         }
 
         @Override
