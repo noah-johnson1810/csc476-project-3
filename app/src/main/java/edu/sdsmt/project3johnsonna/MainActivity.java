@@ -9,11 +9,13 @@ import android.location.LocationProvider;
 import android.location.provider.ProviderProperties;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.location.LocationListenerCompat;
 
@@ -34,6 +36,16 @@ public class MainActivity extends AppCompatActivity {
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         drawingView = findViewById(R.id.drawingView);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int width = displayMetrics.widthPixels;
+        int height = displayMetrics.heightPixels;
+        if (width > height) {
+            drawingView.getLayoutParams().width = Integer.parseInt(String.valueOf(height));
+        } else {
+            drawingView.getLayoutParams().height = Integer.parseInt(String.valueOf(width));
+        }
+        drawingView.requestLayout();
     }
 
     /**
